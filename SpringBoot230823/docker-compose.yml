@@ -1,0 +1,40 @@
+version: '3'
+
+networks:
+  gateway:
+
+services:
+
+  db:
+    image: postgres:15.2
+    container_name: 'postgres-container'
+    environment:
+      - POSTGRES_DB=dbname
+      - POSTGRES_USER=youzer
+      - POSTGRES_PASSWORD=pa55w0rd
+      - PGDATA=/var/lib/postgresql/data/pgdata
+      - TZ='GMT+3'
+      - PGTZ='GMT+3'
+    restart: always
+    ports:
+      - '5432:5432'
+    networks:
+      - gateway
+
+  api:
+    image: 'docker-spring-boot-postgres:latest'
+    hostname: apphost
+    build:
+      context: '.'
+      dockerfile: 'Dockerfile'
+    container_name: 'appka'
+    ports:
+      - '8081:8081'
+    networks:
+      - gateway
+    depends_on:
+      - db
+
+
+
+
