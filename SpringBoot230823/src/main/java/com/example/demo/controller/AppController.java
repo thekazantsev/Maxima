@@ -1,5 +1,6 @@
 package com.example.demo.controller;
 
+import com.example.demo.data.entity.Certificate;
 import com.example.demo.data.entity.User;
 import com.example.demo.data.enums.Role;
 import com.example.demo.data.service.user.UserService;
@@ -7,6 +8,9 @@ import com.example.demo.service.AppService;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
+
+import java.util.Random;
 
 @RestController
 public class AppController {
@@ -19,9 +23,12 @@ public class AppController {
         this.userService = userService;
     }
 
-    @GetMapping("/")
-    public String index() {
-        return "Hello";
+    @RequestMapping("/")
+    @ResponseBody
+    public ModelAndView index() {
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.setViewName("mainPage");
+        return modelAndView;
     }
 
     @GetMapping("/getwithparam")
@@ -34,16 +41,21 @@ public class AppController {
         return appService.post(name);
     }
 
-    @PostMapping("/postuser")
+    @PostMapping("/adduser")
     public ResponseEntity<String> postUser(@RequestBody String userName) {
         User user = new User();
         user.setLogin(userName);
         user.setRole(Role.USER);
         user.setAge(38);
-        User newUser = userService.update(user);
+        Certificate cert = new Certificate();
+        cert.setNumber(new Random().nextInt(99999999));
+        cert.setSerial(new Random().nextInt(999));
+        user.setCertificate(cert);
 
-//        User userByLogin = userService.findByLogin(userName);
+        userService.update(user);
 
-        return ResponseEntity.ok(newUser.getLogin());
+        User userByLogin = userService.findByLogin(userName);
+
+        return ResponseEntity.ok(userByLogin.getLogin());
     }
 }

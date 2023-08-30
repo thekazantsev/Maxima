@@ -3,8 +3,10 @@ version: '3'
 networks:
   gateway:
 
-services:
+volumes:
+  postgresdb_volume:
 
+services:
   db:
     image: postgres:15.2
     container_name: 'postgres-container'
@@ -20,6 +22,8 @@ services:
       - '5432:5432'
     networks:
       - gateway
+    volumes:
+      - postgresdb_volume:/var/lib/postgresql/data
 
   api:
     image: 'docker-spring-boot-postgres:latest'
@@ -34,7 +38,3 @@ services:
       - gateway
     depends_on:
       - db
-
-
-
-
