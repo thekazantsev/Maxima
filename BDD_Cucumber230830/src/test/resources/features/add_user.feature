@@ -1,4 +1,5 @@
 Feature: Add User
+
   Scenario: Adding a new user
     Given I am on the main page
     When I enter the user name "John Doe"

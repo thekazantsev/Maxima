@@ -1,38 +1,38 @@
 package stepdefinitions;
 
+import io.cucumber.java.ru.Дано;
+import io.cucumber.java.ru.И;
+import io.cucumber.java.ru.Когда;
+import io.cucumber.java.ru.Тогда;
 import model.User;
-import io.cucumber.java.en.And;
-import io.cucumber.java.en.Given;
-import io.cucumber.java.en.When;
-import io.cucumber.java.en.Then;
 import model.UsersArchive;
 import org.testng.Assert;
 
 import java.util.Optional;
 
-public class AddUserStepDefinitions {
+public class AddUserStepDefinitionsRU {
     User user;
     String userName;
 
-    @Given("I am on the main page")
+    @Дано("Я нахожусь на главной странице")
     public void iAmOnTheMainPage() {
-        System.out.println("You are on the Main Page...");
+        System.out.println("Ты на главной странице...");
     }
 
-    @When("I enter the user name {string}")
+    @Когда("Я указываю имя пользователя {string}")
     public void iEnterTheUserName(String userName) {
         user = new User(userName);
-        System.out.printf("Creating new User with name '%s'\n", userName);
+        System.out.printf("Создаем нового пользователя с именем '%s'\n", userName);
     }
 
-    @And("I click the {string} button")
+    @И("И нажимаю кнопку добавить {string}")
     public void iClickTheButton(String buttonName) {
         UsersArchive.addUser(user);
         userName = user.getName();
-        System.out.printf("Button '%s' is clicked\n", buttonName);
+        System.out.printf("Кнопка '%s' нажата\n", buttonName);
     }
 
-    @Then("I should see the response {string}")
+    @Тогда("Я должен увидеть сообщение {string}")
     public void iShouldSeeTheResponse(String expectedResponse) {
         Optional<User> lastAddedUser = UsersArchive.getLastAddedUser();
         if (lastAddedUser.isPresent()) {
@@ -43,7 +43,7 @@ public class AddUserStepDefinitions {
             System.out.println(expectedResponse);
         } else {
             // Handle the case when the Optional is empty
-            System.out.println("Archive is empty. User not added.");
+            System.out.println("Архив пуст. Пользователь не добавлен.");
         }
     }
 }
