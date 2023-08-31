@@ -42,7 +42,6 @@ public class AddUserStepDefinitions {
             Assert.assertEquals(user.getName(), userName);
             System.out.println(expectedResponse);
         } else {
-            // Handle the case when the Optional is empty
             System.out.println("Archive is empty. User not added.");
         }
     }
