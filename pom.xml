@@ -10,6 +10,7 @@
     <packaging>pom</packaging>
     <modules>
         <module>Sertificates230809</module>
+        <module>BDD_Cucumber230830</module>
     </modules>
 
     <properties>

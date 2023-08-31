@@ -36,8 +36,3 @@ build/
 
 ### Mac OS ###
 .DS_Store
-/.idea/
-/SpringBoot230823/.mvn/wrapper/maven-wrapper.jar
-/SpringBoot230823/.mvn/wrapper/maven-wrapper.properties
-/SpringBoot230823/mvnw
-/SpringBoot230823/mvnw.cmd
